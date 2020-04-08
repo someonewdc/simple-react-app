@@ -1,0 +1,12 @@
+.AuthForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 400px;
+  padding: 40px 30px;
+}
+
+.AuthForm h3 {
+  font-size: 30px;
+  margin: 0;
+}
