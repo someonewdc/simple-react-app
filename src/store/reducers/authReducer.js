@@ -1,32 +1,34 @@
-import { SET_EMAIL, SET_PASSWORD, CHECK_AS_AUTH } from "../actions/actionTypes";
+import { START_POST_DATA, STOP_POST_DATA, SET_AS_AUTH, SET_EMAIL } from "../actions/actionTypes";
 
 const initialState = {
-  isAuth: false,
-  email: '',
-  password: '',
+  loading: false,
+  authenticated: false,
+  email: ''
 }
 
-export default function authReducer(state = initialState, { type, payload }) {
-  console.log(state);
-  
+export default function profileReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case SET_EMAIL: 
+    case START_POST_DATA: 
+      return {
+        ...state,
+        loading: true
+      }
+    case STOP_POST_DATA: 
+      return {
+        ...state,
+        loading: false
+      }
+    case SET_AS_AUTH: 
+      return {
+        ...state,
+        authenticated: true
+      }
+    case SET_EMAIL: {
       return {
         ...state,
         email: payload
       }
-    case SET_PASSWORD: 
-      return {
-        ...state,
-        password: payload
-      }
-    case CHECK_AS_AUTH: 
-      return {
-        ...state,
-        isAuth: state.currentEmail === state.requiredEmail && state.currentPassword === state.requiredPassword 
-          ? true
-          : false
-      }
+    }
     default: 
       return state
   }

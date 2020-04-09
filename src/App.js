@@ -4,13 +4,11 @@ import Login from './pages/Login';
 import News from './pages/News';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
-import Header from './components/Header/Header';
+import Header from './components/Header';
 import Profile from './pages/Profile';
-import { connect } from 'react-redux';
+import PrivateRoute from './components/ProtectedRoute';
 
-function App({ isAuth }) {
-  console.log(isAuth);
-  
+function App() { 
   return (
     <BrowserRouter>
       <Header />
@@ -18,9 +16,10 @@ function App({ isAuth }) {
         <Switch>
           <Route path="/login" component={Login}/>
           <Route path="/news" component={News}/>
-          <Route path="/profile">
-            {isAuth ? <Profile /> : <Redirect to="/login"/>}
-          </Route>
+          <PrivateRoute
+            component={Profile}
+            path="/profile"
+          />
           <Route exact path="/" component={Home}/>
           <Redirect from="*" to="/" />
         </Switch>
@@ -29,10 +28,4 @@ function App({ isAuth }) {
   );
 }
 
-const mapStateToProps = ({ authForm }) => {
-  return {
-    isAuth: authForm.isAuth
-  }
-} 
-
-export default connect(mapStateToProps, null)(App);
+export default App;

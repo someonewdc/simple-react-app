@@ -4,9 +4,6 @@ import { Form, Formik } from 'formik';
 import FormikInput from '../FormikInput';
 import * as Yup from 'yup'
 import { Button } from '@material-ui/core';
-import { connect } from "react-redux";
-import { setEmail, setPassword, checkAsAuth } from '../../store/actions/actionCreators';
-import { useHistory } from 'react-router-dom';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -14,26 +11,23 @@ const LoginSchema = Yup.object().shape({
     .email('Email must be valid!'),
   password: Yup.string()
     .required('This field is required!')
-    .min(8, 'Password should have at least 8 character!')
+    .min(5, 'Password should have at least 5 character!')
 })
 
-const AuthForm = ({ currentPassword, currentEmail, authHandler, email, password }) => {  
 
-  const history = useHistory()  
+
+const AuthForm = ({ emailState, authHandler }) => {
 
   const initialValues = {
-    email: currentEmail,
-    password: currentPassword
+    email: emailState,
+    password: ''
   }
 
   const submitHandler = values => {
-    if (values.email === 'Admin@mail.ru'  && values.password === '12345678') {
-      authHandler()
-      history.replace('/profile')
-    }
+    authHandler(values.email, values.password)
   }
 
-  return (
+  return ( 
     <div className={classes.AuthForm}>
       <h3>Login</h3>
       <Formik
@@ -72,20 +66,4 @@ const AuthForm = ({ currentPassword, currentEmail, authHandler, email, password 
   )
 }
 
-const mapStateToProps = ({ authForm }) => {
-  return {
-    email: authForm.currentEmail,
-    password: authForm.currentPassword,
-    isAuth: authForm.isAuth
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    emailHandler: email =>  dispatch(setEmail(email)),
-    passwordHandler: password =>  dispatch(setPassword(password)),
-    authHandler: () => dispatch(checkAsAuth())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthForm)
+export default AuthForm
