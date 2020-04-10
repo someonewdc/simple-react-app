@@ -16,9 +16,9 @@ const Login = ({loading}) => {
 	)
 }
 
-const mapStateToProps = ({ loginPage }) => {
+const mapStateToProps = ({ auth }) => {
 	return {
-		loading: loginPage.loading
+		loading: auth.loading
 	}
 }
 

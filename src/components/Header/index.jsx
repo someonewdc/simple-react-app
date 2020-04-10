@@ -4,8 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { NavLink } from 'react-router-dom';
+import HeaderButton from './HeaderButton';
+import { connect } from 'react-redux';
+import { setUserAsNotAuth } from '../../store/actions/authActionCreators';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,20 +19,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  link: {
-    color: '#ffffff',
-    textDecoration: 'none',
-    opacity: 0.6
-  },
-  headerBtn: {
-    marginRight: '20px',
-  },
-  active: {
-    opacity: 1
-  }
+  
 }));
 
-const Header = () => {
+const Header = ({authenticated, logoutHandler}) => {
 	const classes = useStyles();
 
 	return (
@@ -39,47 +30,28 @@ const Header = () => {
 		<Container max-width="lg">
 		<Toolbar>			
 		<Typography variant="h6" className={classes.title}>
-
-      <NavLink 
-        activeClassName={classes.active} 
-        exact 
-        to="/" 
-        className={classes.link}
-      >
-        <Button color="inherit" className={classes.headerBtn}>
-          Home
-        </Button>
-      </NavLink>
-
-      <NavLink 
-        activeClassName={classes.active} 
-        to="/profile" 
-        className={classes.link}
-      >
-        <Button color="inherit" className={classes.headerBtn}>
-          Profile
-        </Button>
-      </NavLink>
-
-      <NavLink 
-        activeClassName={classes.active} 
-        to="/news" 
-        className={classes.link}
-      >
-        <Button color="inherit" >
-          News
-        </Button>
-      </NavLink>
+      <HeaderButton
+        exact={true}
+        to="/"
+        children="Home"
+      />
+      <HeaderButton
+        exact={false}
+        to="/profile"
+        children="Profile"
+      />
+      <HeaderButton
+        exact={false}
+        to="/news"
+        children="News"
+      />
 		</Typography>
-    <NavLink 
-      activeClassName={classes.active} 
-      to="/login" 
-      className={classes.link}
-    >
-      <Button color="inherit">
-        Login
-      </Button>
-    </NavLink>
+    <HeaderButton
+      clickHandler={authenticated ? logoutHandler : () => {}}
+      exact={false}
+      to={authenticated ? '/' : '/login'}
+      children={authenticated ? 'Logout' : 'Login'}
+    />
 	</Toolbar>
 	
 			
@@ -88,6 +60,16 @@ const Header = () => {
 	)
 }
 
+const mapStateToProps = ({auth}) => {
+  return {
+    authenticated: auth.authenticated
+  }
+}
 
+const mapDispatchToProps = dispatch => {
+  return {
+    logoutHandler: () => dispatch(setUserAsNotAuth())
+  }
+}
 
-export default Header
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

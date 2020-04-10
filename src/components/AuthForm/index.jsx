@@ -3,7 +3,7 @@ import classes from './AuthForm.module.css'
 import { Form, Formik } from 'formik';
 import FormikInput from '../FormikInput';
 import * as Yup from 'yup'
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -16,15 +16,16 @@ const LoginSchema = Yup.object().shape({
 
 
 
-const AuthForm = ({ emailState, authHandler }) => {
-
+const AuthForm = ({ emailState, loginHandler, error }) => {
   const initialValues = {
     email: emailState,
     password: ''
   }
 
+  const errorMessage = error && error.split('_').join(' ')
+
   const submitHandler = values => {
-    authHandler(values.email, values.password)
+    loginHandler(values.email, values.password)
   }
 
   return ( 
@@ -39,6 +40,13 @@ const AuthForm = ({ emailState, authHandler }) => {
           ({ dirty, isValid }) => {
             return (
               <Form>
+                {
+                  error && !dirty
+                    ? <Typography color="error">
+                      Error: {errorMessage}
+                    </Typography>
+                    : null
+                }
                 <FormikInput
                   name="email"
                   required
