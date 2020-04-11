@@ -1,14 +1,17 @@
 .AuthForm {
+  background: #fff;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 400px;
   padding: 40px 30px;
+  border: 1px solid #d3d9de;
 }
 
 .AuthForm h3 {
   font-size: 30px;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .Error {

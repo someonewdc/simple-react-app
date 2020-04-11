@@ -1,21 +1,21 @@
-import { START_POST_DATA, STOP_POST_DATA, SET_AS_AUTH, SET_EMAIL, SET_AS_NOT_AUTH, SET_ERROR } from "../actions/actionTypes";
+import { START_POSTING_DATA, STOP_POSTING_DATA, SET_AS_AUTH, SET_EMAIL, SET_AS_NOT_AUTH, SET_ERROR_AUTH } from "../actions/actionTypes";
 
 const initialState = {
   loading: false,
   authenticated: localStorage.getItem('auth'),
   email: '',
   id: localStorage.getItem('id'),
-  error: null
+  error: ''
 }
 
-export default function profileReducer(state = initialState, { type, payload }) {
+export const authReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case START_POST_DATA: 
+    case START_POSTING_DATA: 
       return {
         ...state,
         loading: true
       }
-    case STOP_POST_DATA: 
+    case STOP_POSTING_DATA: 
       return {
         ...state,
         loading: false
@@ -37,7 +37,7 @@ export default function profileReducer(state = initialState, { type, payload }) 
         ...state,
         email: payload
       }
-    case SET_ERROR: 
+    case SET_ERROR_AUTH: 
       return {
         ...state,
         error: payload

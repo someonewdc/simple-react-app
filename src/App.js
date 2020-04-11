@@ -1,12 +1,12 @@
 import React from 'react';
-import Home from './pages/Home';
 import Login from './pages/Login';
-import News from './pages/News';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Header from './components/Header';
-import Profile from './pages/Profile';
 import PrivateRoute from './components/ProtectedRoute';
+import ProfileContainer from './containers/ProfileContainer';
+import NewsContainer from './containers/NewsContainer';
+import Information from './pages/Information';
 
 function App() { 
   return (
@@ -15,12 +15,12 @@ function App() {
       <Container maxWidth="lg">
         <Switch>
           <Route path="/login" component={Login}/>
-          <Route path="/news" component={News}/>
+          <Route path="/news" component={NewsContainer}/>
           <PrivateRoute
-            component={Profile}
+            component={ProfileContainer}
             path="/profile"
           />
-          <Route exact path="/" component={Home}/>
+          <Route exact path="/" component={Information}/>
           <Redirect from="*" to="/" />
         </Switch>
       </Container>

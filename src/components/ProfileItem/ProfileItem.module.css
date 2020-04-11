@@ -1,0 +1,59 @@
+.ProfileItem {
+  background: #fff;
+  border: 1px solid #d3d9de;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.ErrorWrapper {
+  margin-top: 40px;
+}
+
+.ItemsColumn {
+  width: 100px;
+}
+
+.ItemsColumn:first-child {
+  margin-right: 25px;
+}
+
+.ItemsColumn:last-child {
+  width: 55px;
+}
+
+.Item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px;
+  background: #D3D9DE;
+  border-radius: 5px;
+}
+
+.Item:first-child {
+  width: 30%;
+  margin-right: 10px;
+}
+
+.Item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.Item strong {
+  display: block;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.Item li {
+  text-align: center;
+  margin-right: 10px;
+}
+
+.Item img {
+  width: 25px;
+}

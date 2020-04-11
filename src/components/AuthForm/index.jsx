@@ -7,22 +7,23 @@ import { Button, Typography } from '@material-ui/core';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
-    .required('This field is required!')
-    .email('Email must be valid!'),
+    .required('Это обязательное поле!')
+    .email('Email должен быть корректным!'),
   password: Yup.string()
-    .required('This field is required!')
-    .min(5, 'Password should have at least 5 character!')
+    .required('Это обязательное поле!')
+    .min(5, 'Пароль должен содержать хотя бы 5 символов!')
 })
 
 
 
-const AuthForm = ({ emailState, loginHandler, error }) => {
+const AuthForm = ({ emailState, loginHandler, error }) => {  
   const initialValues = {
     email: emailState,
     password: ''
   }
 
-  const errorMessage = error && error.split('_').join(' ')
+  let errorMessage = error && error.split('_').join(' ')
+  if( errorMessage.match(/wrong/) ) errorMessage = 'неверные Email или пароль'
 
   const submitHandler = values => {
     loginHandler(values.email, values.password)
@@ -30,7 +31,7 @@ const AuthForm = ({ emailState, loginHandler, error }) => {
 
   return ( 
     <div className={classes.AuthForm}>
-      <h3>Login</h3>
+      <h3>Войти</h3>
       <Formik
         initialValues={initialValues}
         onSubmit={submitHandler}
@@ -43,8 +44,8 @@ const AuthForm = ({ emailState, loginHandler, error }) => {
                 {
                   error && !dirty
                     ? <Typography color="error">
-                      Error: {errorMessage}
-                    </Typography>
+                        Ошибка: {errorMessage}
+                      </Typography>
                     : null
                 }
                 <FormikInput
@@ -57,14 +58,14 @@ const AuthForm = ({ emailState, loginHandler, error }) => {
                   name="password"
                   required
                   type="password"
-                  label="Password"
+                  label="Пароль"
                 />
                 <Button
                   disabled={!isValid || !dirty}
                   variant="contained"
                   color="primary"
                   type="submit"
-                >Sign in</Button>
+                >Войти</Button>
               </Form>
             )
           }

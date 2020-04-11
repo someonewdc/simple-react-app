@@ -1,0 +1,10 @@
+.News {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ErrorWrapper {
+  margin-top: 40px;
+}
