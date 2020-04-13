@@ -26,7 +26,7 @@ export const fetchNews = () => {
     dispatch(setLoader())
     try {
       const response = await getData('news')
-      dispatch(setNews(response.data.data))
+      await dispatch(setNews(response.data.data))      
       dispatch(setAsLoaded())
     } catch (error) {
       console.log(error);

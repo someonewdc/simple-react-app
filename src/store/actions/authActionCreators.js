@@ -39,7 +39,7 @@ export const checkAsAuth = (email, password) => {
     try {
 
       const response = await postData('validate', userData)
-      const { status, data, message } = response.data
+      const { status, data, message } = await response.data
       if (status === 'ok') {
         localStorage.setItem('auth', true)
         localStorage.setItem('id', data.id)
