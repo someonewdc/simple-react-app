@@ -50,7 +50,6 @@ export const checkAsAuth = (email, password) => {
       dispatch(setEmail(email))
 
     } catch (error) {
-
       console.log(error);
       dispatch(setEmail(email))
       dispatch(setError('ошибка подключения, сервер не отвечает'))
